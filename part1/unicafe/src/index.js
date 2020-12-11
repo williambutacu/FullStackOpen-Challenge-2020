@@ -37,12 +37,12 @@ let positive = good/all
       handleNeutral={handleNeutral}
     />
     <h1>Statistics</h1>
-    {all===0? <h1>No feedback given</h1>: <div><Statistics text="good" value={good} />
+    {all===0? <h1>No feedback given</h1>: <div><table><tbody><Statistics text="good" value={good} />
     <Statistics text="neutral" value={neutral} />
     <Statistics text="bad" value={bad} />
     <Statistics text="all" value={all} />
     <Statistics text="average" value={average} />
-    <Statistics text="positive" value={positive} /></div>}
+    <Statistics text="positive" value={positive} /></tbody></table></div>}
     
 
    
