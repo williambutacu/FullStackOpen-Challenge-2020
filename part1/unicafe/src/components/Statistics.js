@@ -4,10 +4,7 @@ import React from "react";
 function Statistics(props) {
     return(
         <div>
-      <h1>Give feedback</h1>
-      <button onClick={props.handleGood}>Good</button>
-      <button onClick={props.handleNeutral}>Neutral</button>
-      <button onClick={props.handleBad}>Bad</button>
+     
 <br>
 </br>
 <h1>Statistics</h1>

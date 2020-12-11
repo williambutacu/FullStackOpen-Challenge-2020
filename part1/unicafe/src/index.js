@@ -26,18 +26,24 @@ let all = good+bad+neutral
 let average = (good-bad)/all
 let positive = good/all
 
-  return (
-    <Statistics
-      handleGood={handleGood}
-      handleBad={handleBad}
-      handleNeutral={handleNeutral}
+
+
+  return (<div>
+    <h1>Give feedback</h1>
+    <button onClick={handleGood}>Good</button>
+    <button onClick={handleNeutral}>Neutral</button>
+    <button onClick={handleBad}>Bad</button>
+    {all===0 ? <h1>No feedback given</h1> :  <Statistics
+     
       all={all}
       average={average}
       positive={positive}
       good={good}
       neutral={neutral}
       bad={bad}
-    />
+    />}
+   
+    </div>
   )
 }
 
