@@ -3,16 +3,36 @@ import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const n= anecdotes.length;
+  const initialArray =Array(n).fill(0);
+  const [voteArray, setVoteArray]= useState(initialArray)
 
   function handleClick(){
     setSelected(Math.floor(Math.random()*anecdotes.length));
-    console.log(selected)
   }
+
+  function handleVote(){
+
+   const temporaryArray = [...voteArray]
+   temporaryArray[selected] +=1;
+   setVoteArray([...temporaryArray])
+   console.log(voteArray);
+   console.log(temporaryArray)
+
+  }
+  
 
   return (
     <div>
-    <button onClick={handleClick}>Next anecdote</button>
-      {props.anecdotes[selected]}
+    <h1>Anecdote of the day</h1>
+      <p>{props.anecdotes[selected]}</p>
+      <div>
+      <button onClick={handleClick}>Next anecdote</button>
+      <button onClick={handleVote}>Vote</button>
+      </div>
+      <div><h1>Anecdotes with most votes</h1>
+      {/* <p>{highestVoted}</p> */}
+      </div>
     </div>
   )
 }
