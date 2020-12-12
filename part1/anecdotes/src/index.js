@@ -19,8 +19,6 @@ const App = (props) => {
    console.log(voteArray);
    console.log(temporaryArray)
    
-   
-  // console.log(max)
   }
   let max = voteArray.reduce(function(a,b){
 
@@ -48,6 +46,7 @@ const App = (props) => {
   )
 }
 
+
 const anecdotes = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -61,3 +60,4 @@ ReactDOM.render(
   <App anecdotes={anecdotes} />,
   document.getElementById('root')
 )
+
