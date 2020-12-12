@@ -18,9 +18,21 @@ const App = (props) => {
    setVoteArray([...temporaryArray])
    console.log(voteArray);
    console.log(temporaryArray)
-
+   
+   
+  // console.log(max)
   }
-  
+  let max = voteArray.reduce(function(a,b){
+
+    return Math.max(a,b)
+  })
+
+   const maxAnecdote = voteArray.findIndex(function(maximum){
+     return ( maximum === max )
+   });
+   console.log(maxAnecdote)
+  console.log()
+
 
   return (
     <div>
@@ -31,8 +43,7 @@ const App = (props) => {
       <button onClick={handleVote}>Vote</button>
       </div>
       <div><h1>Anecdotes with most votes</h1>
-      {/* <p>{highestVoted}</p> */}
-      </div>
+      <p>{anecdotes[maxAnecdote] } </p>    </div>
     </div>
   )
 }
