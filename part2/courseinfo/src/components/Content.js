@@ -1,5 +1,7 @@
 import React from 'react'
 import Part from './Part'
+import Total from './Total'
+
 
 export default function Content({parts}) {
     console.log(parts);
@@ -12,7 +14,7 @@ export default function Content({parts}) {
 
         /> 
          )}
-
+            <Total parts={parts} />
 
             
         </div>
