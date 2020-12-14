@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import AddPerson from './AddPerson'
+import Phonebook from './Phonebook'
+import Search from './Search'
 
 const App = () => {
 
@@ -65,29 +68,15 @@ function pAlreadyExist(event) {
 
 return (
     <div>
-    <h2>Search by name</h2>
-    <form onSubmit={handleSearchSubmit}>
-      <input value={search} onChange={handleSearchChange} />
-      <button type="submit">Search</button>
-    </form>
-      <h2>Phonebook</h2>
-      <form onSubmit={nameExists? nAlreadyExist : phoneExists? pAlreadyExist: handleSubmit}>
-        <div>
-          <input value={newName.name} onChange={handleChange} name="name"/>
-        </div>
-        <div>
-          <input value={newName.phone} onChange={handleChange} name="phone" />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {persons.map(person=>{
-        return (
-          <p key={person.name}> {person.name} {person.phone}</p>
-        )
-      })}
+    <Search onSubmit={handleSearchSubmit} onChange={handleSearchChange} search={search}/>
+      <AddPerson newName={newName} nameExists={nameExists} phoneExists={phoneExists} 
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        nAlreadyExist={nAlreadyExist}
+        pAlreadyExist={pAlreadyExist}
+      />
+      <Phonebook persons={persons}/>
+     
     </div>
   )
 }
