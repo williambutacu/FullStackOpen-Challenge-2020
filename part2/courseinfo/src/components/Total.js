@@ -10,11 +10,11 @@ console.log(exArray)
     return (
         <div>
 
-        {exArray.reduce((accumulator,reducer)=>{
+       <p>Total of {exArray.reduce((accumulator,reducer)=>{
             return(
                 accumulator+reducer
             )
-        })}
+        })}</p> 
 
 
         </div>
