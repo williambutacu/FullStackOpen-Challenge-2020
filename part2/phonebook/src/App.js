@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
 
 const App = () => {
+
   const [ newName, setNewName ] = useState({
     name:"",
     phone:""
   })
-  const [ persons, setPersons ] = useState([]) 
+  const [ persons, setPersons ] = useState([{
+    name: "Angela",
+    phone:"0747"
+  }]) 
+  const [search, setSearch] = useState("")
+
+  const nameExists= persons.filter(person=>person.name===newName.name).length>0;
+  const phoneExists= persons.filter(person=>person.phone===newName.phone).length>0;
 
 
 function handleChange(event) {
@@ -29,6 +37,19 @@ function handleSubmit(event) {
   setNewName({name:"", phone:""})
 }
 
+function handleSearchChange(event) {
+  setSearch(event.target.value)
+
+}
+
+function handleSearchSubmit(event){
+  event.preventDefault();
+  const searchExists= persons.filter(person=>person.name===search).length>0;
+  return(searchExists? alert(`${search} is in the phonebook`): alert("There is no such contact"))
+}
+
+
+
 function nAlreadyExist(event) {
   event.preventDefault();
   alert(`${newName.name} already exists in the phonebook`)
@@ -39,12 +60,16 @@ function pAlreadyExist(event) {
   alert(`${newName.phone} already exists in the phonebook`)
 }
 
-const nameExists= persons.filter(person=>person.name===newName.name).length>0;
-const phoneExists= persons.filter(person=>person.phone===newName.phone).length>0;
+
 
 
 return (
     <div>
+    <h2>Search by name</h2>
+    <form onSubmit={handleSearchSubmit}>
+      <input value={search} onChange={handleSearchChange} />
+      <button type="submit">Search</button>
+    </form>
       <h2>Phonebook</h2>
       <form onSubmit={nameExists? nAlreadyExist : phoneExists? pAlreadyExist: handleSubmit}>
         <div>
