@@ -1,38 +1,57 @@
 import React, { useState } from 'react'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { name:""
-      }
-  ]) 
-  const [ newName, setNewName ] = useState('')
+  const [ newName, setNewName ] = useState({
+    name:"",
+    phone:""
+  })
+  const [ persons, setPersons ] = useState([]) 
+
 
 function handleChange(event) {
-  setNewName(event.target.value)
+  const {value , name} = event.target;
+  setNewName(prevValue=>{
+    return { ...prevValue,
+      [name]: value
+    }
+  })
 }
 
 function handleSubmit(event) {
   event.preventDefault();
   
   const personObject={
-    name:newName
+    name:newName.name,
+    phone:newName.phone
   }
   setPersons(persons.concat(personObject))
   
-  setNewName("")
+  setNewName({name:"", phone:""})
 }
 
-function alreadyExist(event) {
+function nAlreadyExist(event) {
   event.preventDefault();
-  alert(`${newName} already exists`)
-  
+  alert(`${newName.name} already exists in the phonebook`)
 }
-  return (
+
+function pAlreadyExist(event) {
+  event.preventDefault();
+  alert(`${newName.phone} already exists in the phonebook`)
+}
+
+const nameExists= persons.filter(person=>person.name===newName.name).length>0;
+const phoneExists= persons.filter(person=>person.phone===newName.phone).length>0;
+
+
+return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={persons.filter(person=>person.name===newName).length>0? alreadyExist:handleSubmit}>
+      <form onSubmit={nameExists? nAlreadyExist : phoneExists? pAlreadyExist: handleSubmit}>
         <div>
-          <input value={newName} onChange={handleChange} />
+          <input value={newName.name} onChange={handleChange} name="name"/>
+        </div>
+        <div>
+          <input value={newName.phone} onChange={handleChange} name="phone" />
         </div>
         <div>
           <button type="submit">add</button>
@@ -41,7 +60,7 @@ function alreadyExist(event) {
       <h2>Numbers</h2>
       {persons.map(person=>{
         return (
-          <p key={person.name}> {person.name}</p>
+          <p key={person.name}> {person.name} {person.phone}</p>
         )
       })}
     </div>
