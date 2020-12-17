@@ -7,7 +7,6 @@ import ListCountries from './components/ListCountries';
 export default function App() {
   const [countries, setCountries] = useState([])
   const [query, setQuery] = useState("")
-
   function hookEffect(){
     axios
       .get("https://restcountries.eu/rest/v2/all")
@@ -29,8 +28,7 @@ export default function App() {
 
   const queryResults = countries.filter(country=>country.name.toLowerCase().startsWith(query.toLowerCase()))
 
-  console.log(queryResults)
-
+  
 
 
   return (
