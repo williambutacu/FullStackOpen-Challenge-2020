@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+import Country from './components/Country';
 
 
 export default function App() {
@@ -17,11 +18,11 @@ export default function App() {
 
   function handleChange(event){
     setQuery(event.target.value)
-    console.log(query)
+    // console.log(query)
    
   }
 
-  const queryResults = countries.filter(country=>country.name.toLowerCase().startsWith(query))
+  const queryResults = countries.filter(country=>country.name.toLowerCase().startsWith(query.toLowerCase()))
 
   console.log(queryResults)
 
@@ -34,7 +35,8 @@ export default function App() {
     onChange={handleChange} />
     <br></br>
     
-    {queryResults.length>100 ? <p> Here your map will render</p> :
+    {queryResults.length===1 ? <Country src={queryResults} /> :
+      queryResults.length>100 ? <p> Here your map will render</p> :
       queryResults.length>10 ? <p>Make a more specific query</p> : 
       
     <ul> {queryResults.map((result,i)=><li key={i}> {result.name}</li>)} </ul>}
