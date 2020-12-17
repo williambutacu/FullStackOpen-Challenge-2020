@@ -20,7 +20,7 @@ export default function Country({src}) {
                 <li key={result.iso639_1}> {result.name}</li>
                 )}
             </ul>
-            <img src={flag} alt="flag" maxHeight="100" height="100"></img>
+            <img src={flag} alt="flag" height="100"></img>
         </div>
     )
 }

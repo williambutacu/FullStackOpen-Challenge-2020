@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import Country from './components/Country';
+import ListCountries from './components/ListCountries';
 
 
 export default function App() {
@@ -22,6 +23,10 @@ export default function App() {
    
   }
 
+  function handleClick(event) {
+    setQuery(event.target.value)
+  }
+
   const queryResults = countries.filter(country=>country.name.toLowerCase().startsWith(query.toLowerCase()))
 
   console.log(queryResults)
@@ -39,7 +44,15 @@ export default function App() {
       queryResults.length>100 ? <p> Here your map will render</p> :
       queryResults.length>10 ? <p>Make a more specific query</p> : 
       
-    <ul> {queryResults.map((result,i)=><li key={i}> {result.name}</li>)} </ul>}
+    <ul> {queryResults.map(result=>
+    <ListCountries 
+    result={result}
+      key={result.name}
+      handleClick={handleClick}
+    />
+    )} 
+    </ul>
+    }
     
       </div>
   )
