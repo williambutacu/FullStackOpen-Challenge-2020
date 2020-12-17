@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddPerson from './AddPerson'
 import Phonebook from './Phonebook'
 import Search from './Search'
+import axios from "axios"
 
 const App = () => {
 
@@ -10,11 +11,18 @@ const App = () => {
     phone:""
   })
   const [ persons, setPersons ] = useState([{
-    name: "Angela",
-    phone:"0747"
+    name: "",
+    phone:""
   }]) 
   const [search, setSearch] = useState("")
 
+function hook(){
+  axios
+    .get("http://localhost:3001/persons")
+    .then(response=>setPersons(response.data))
+}
+
+useEffect(hook,[])
   const nameExists= persons.filter(person=>person.name===newName.name).length>0;
   const phoneExists= persons.filter(person=>person.phone===newName.phone).length>0;
 
