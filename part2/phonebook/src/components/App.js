@@ -45,9 +45,14 @@ function handleSubmit(event) {
     name:newName.name,
     phone:newName.phone
   }
-  setPersons(persons.concat(personObject))
+
+  personService
+    .create(personObject)
+    .then(response=>{      
+      setPersons(persons.concat(response))
+      setNewName({name:"", phone:""})
+    })
   
-  setNewName({name:"", phone:""})
 }
 
 function handleSearchChange(event) {
