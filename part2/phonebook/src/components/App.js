@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import AddPerson from './AddPerson'
 import Phonebook from './Phonebook'
 import Search from './Search'
-import axios from "axios"
 import personService from "../services/srv"
 
 const App = () => {
