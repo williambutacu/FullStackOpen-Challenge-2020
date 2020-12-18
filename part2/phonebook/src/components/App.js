@@ -73,7 +73,9 @@ function pAlreadyExist(event) {
   alert(`${newName.phone} already exists in the phonebook`)
 }
 
-
+function deletePersonId(id) {
+  window.confirm("Are you sure you want to delete this person") ? personService.deletePerson(id).then(setPersons(persons.filter(person=>person.id!==id))) : alert("Nobody was deleted")
+}
 
 
 return (
@@ -85,7 +87,9 @@ return (
         nAlreadyExist={nAlreadyExist}
         pAlreadyExist={pAlreadyExist}
       />
-      <Phonebook persons={persons}/>
+      <Phonebook persons={persons}
+        deletePersonId={deletePersonId}
+      />
      
     </div>
   )

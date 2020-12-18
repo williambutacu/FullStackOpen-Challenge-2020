@@ -1,12 +1,9 @@
 import React from 'react'
 import Person from './Person'
-import personService from "../services/srv"
 
-export default function Phonebook({persons}) {
+export default function Phonebook({persons,deletePersonId}) {
 
-function deletePersonId(id) {
-  window.confirm("Are you sure you want to delete this person") ? personService.deletePerson(id) : alert("Nobody was deleted")
-}
+
 
     return (
         <div>
