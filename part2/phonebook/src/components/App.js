@@ -3,6 +3,7 @@ import AddPerson from './AddPerson'
 import Phonebook from './Phonebook'
 import Search from './Search'
 import personService from "../services/srv"
+import Notification from './Notification'
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
     phone:""
   }]) 
   const [search, setSearch] = useState("")
+  const [message, setMessage] = useState("")
 
 function hook(){
   personService
@@ -45,9 +47,15 @@ const personObject={
   phone:newName.phone
 }
 
+function changeMessage(){
+  setMessage(`${personObject.name} was added to the Phonebook`)
+  setTimeout(()=>{
+    setMessage(null)
+  },5000)
+}
+
 function handleSubmit(event) {
   event.preventDefault();
-  
 
 
   personService
@@ -56,6 +64,9 @@ function handleSubmit(event) {
       setPersons(persons.concat(response))
       setNewName({name:"", phone:""})
     })
+
+    changeMessage();
+
   
 }
 
@@ -76,11 +87,12 @@ function nAlreadyExist(event) {
   event.preventDefault();
   const personToBeUpdated= persons.find(person=>person.name===newName.name)
   const id_update = personToBeUpdated.id
-  window.confirm(`${newName.name} is already in the phonebook, replace the old number with a new one?`)?
+  const todo=window.confirm(`${newName.name} is already in the phonebook, replace the old number with a new one?`)?
   personService
   .update(id_update,personObject)
   .then(response=>setPersons(persons.map(person=>person.id !== id_update? person : response)))
   : alert(`${newName.name} wasn't updated`)
+  todo? changeMessage() : alert("Nothing was changed")
 }
 
 function pAlreadyExist(event) {
@@ -91,7 +103,11 @@ function pAlreadyExist(event) {
 function deletePersonId(id) {
   window.confirm("Are you sure you want to delete this person") ?
    personService
-   .deletePerson(id).then(setPersons(persons.filter(person=>person.id!==id))) 
+   .deletePerson(id)
+   .then(setPersons(persons.filter(person=>person.id!==id))) 
+   .catch(error=>{
+     alert("User has already been removed")
+   })
    : alert("Nobody was deleted")
 }
 
@@ -108,7 +124,7 @@ return (
       <Phonebook persons={persons}
         deletePersonId={deletePersonId}
       />
-     
+     <Notification message={message} />
     </div>
   )
 }
