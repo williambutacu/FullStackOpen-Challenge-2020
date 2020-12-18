@@ -3,6 +3,7 @@ import AddPerson from './AddPerson'
 import Phonebook from './Phonebook'
 import Search from './Search'
 import axios from "axios"
+import personService from "../services/srv"
 
 const App = () => {
 
@@ -17,9 +18,11 @@ const App = () => {
   const [search, setSearch] = useState("")
 
 function hook(){
-  axios
-    .get("http://localhost:3001/persons")
-    .then(response=>setPersons(response.data))
+  personService
+  .getAll()
+  .then(initialPersons=>{
+    setPersons(initialPersons)
+  })
 }
 
 useEffect(hook,[])
