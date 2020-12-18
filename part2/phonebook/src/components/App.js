@@ -89,7 +89,10 @@ function pAlreadyExist(event) {
 }
 
 function deletePersonId(id) {
-  window.confirm("Are you sure you want to delete this person") ? personService.deletePerson(id).then(setPersons(persons.filter(person=>person.id!==id))) : alert("Nobody was deleted")
+  window.confirm("Are you sure you want to delete this person") ?
+   personService
+   .deletePerson(id).then(setPersons(persons.filter(person=>person.id!==id))) 
+   : alert("Nobody was deleted")
 }
 
 
