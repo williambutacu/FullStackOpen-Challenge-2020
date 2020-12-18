@@ -25,6 +25,8 @@ function hook(){
 }
 
 useEffect(hook,[])
+
+
   const nameExists= persons.filter(person=>person.name===newName.name).length>0;
   const phoneExists= persons.filter(person=>person.phone===newName.phone).length>0;
 
@@ -38,13 +40,15 @@ function handleChange(event) {
   })
 }
 
+const personObject={
+  name:newName.name,
+  phone:newName.phone
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   
-  const personObject={
-    name:newName.name,
-    phone:newName.phone
-  }
+
 
   personService
     .create(personObject)
@@ -70,7 +74,13 @@ function handleSearchSubmit(event){
 
 function nAlreadyExist(event) {
   event.preventDefault();
-  alert(`${newName.name} already exists in the phonebook`)
+  const personToBeUpdated= persons.find(person=>person.name===newName.name)
+  const id_update = personToBeUpdated.id
+  window.confirm(`${newName.name} is already in the phonebook, replace the old number with a new one?`)?
+  personService
+  .update(id_update,personObject)
+  .then(response=>setPersons(persons.map(person=>person.id !== id_update? person : response)))
+  : alert(`${newName.name} wasn't updated`)
 }
 
 function pAlreadyExist(event) {
